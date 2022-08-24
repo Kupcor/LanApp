@@ -17,7 +17,7 @@ public abstract class Window extends JFrame {
         this.height = height;
 
         this.setSize(new Dimension(this.width, this.height));
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
         this.setTitle("LanApp");
         this.setResizable(false);
         this.setVisible(true);

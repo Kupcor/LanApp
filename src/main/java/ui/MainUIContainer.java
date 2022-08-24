@@ -23,6 +23,7 @@ public class MainUIContainer extends Window implements MouseListener {
     public MainUIContainer(int width, int height) throws Exception {
         super(width, height);
         this.setStyleToMainPanels();
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         this.navSectionPanel.setPreferredSize(new Dimension(200,500));
 

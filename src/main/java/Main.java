@@ -2,6 +2,7 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import ui.MainUIContainer;
 import ui.wordtrainings.RememberingWordsTraining;
+import ui.wordtrainings.subclasses.leftpanelandclasses.CreateWordsGameMainPanel;
 
 import javax.swing.*;
 

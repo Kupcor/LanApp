@@ -46,4 +46,8 @@ public class Reader {
         }
         return allDataBasesList;
     }
+
+    public void modifyDataRecord() {
+
+    }
 }
