@@ -49,7 +49,9 @@ public class CreateResultAndChangeWordsOptionPanel extends JPanel {
     public void updateStatistic(boolean isAnswerEvaluationIsCorrect) {
         if (isAnswerEvaluationIsCorrect) this.amountOfCorrectAnswer++;
         else this.amountOfWrongAnswer++;
-        this.amountOfGuessWords++;
+        ++this.amountOfGuessWords;
         this.initializeOrUpdateStatistic();
     }
+
+    public int getAmountOfGuessWords() {return this.amountOfGuessWords;}
 }

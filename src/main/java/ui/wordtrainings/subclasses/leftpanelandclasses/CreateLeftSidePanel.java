@@ -12,5 +12,6 @@ public class CreateLeftSidePanel extends JPanel {
     }
 
     private void initialize() {
+
     }
 }
