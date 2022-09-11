@@ -69,7 +69,11 @@ public class MainUIContainer extends Window implements MouseListener {
         }
 
         if (e.getSource() == this.openDataModifierSection) {
-            this.dataModifier = new DataModifier();
+            try {
+                this.dataModifier = new DataModifier();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
             this.setNewPanelToMainSection(this.dataModifier);
         }
     }

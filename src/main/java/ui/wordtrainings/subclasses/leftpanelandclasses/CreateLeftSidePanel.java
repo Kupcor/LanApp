@@ -10,8 +10,4 @@ public class CreateLeftSidePanel extends JPanel {
         this.setLayout(new BorderLayout());
         this.setBorder(new EmptyBorder(5,20,5,10));
     }
-
-    private void initialize() {
-
-    }
 }

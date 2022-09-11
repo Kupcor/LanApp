@@ -1,8 +1,6 @@
 package databases;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -49,5 +47,19 @@ public class Reader {
 
     public void modifyDataRecord() {
 
+    }
+
+    public void createCSVFile(String filePath) {
+        try {
+            FileWriter fileWriter = new FileWriter("src\\main\\java\\databases\\data\\" + filePath +".csv");
+            fileWriter.close();
+
+            FileWriter appendWriter = new FileWriter("src\\main\\java\\databases\\DataBases.txt", true);
+            BufferedWriter bw = new BufferedWriter(appendWriter);
+            bw.write(";"+filePath + ".csv");
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
