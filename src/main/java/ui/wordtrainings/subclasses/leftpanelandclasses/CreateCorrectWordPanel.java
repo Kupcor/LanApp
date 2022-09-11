@@ -5,8 +5,9 @@ import java.awt.*;
 
 public class CreateCorrectWordPanel extends JPanel {
 
-    public CreateCorrectWordPanel() {
+    public CreateCorrectWordPanel(String correctAnswer) {
         this.setLayout(new GridLayout(1,1));
+        this.updateCorrectAnswerLabel(correctAnswer);
     }
 
     public void updateCorrectAnswerLabel(String correctAnswer) {

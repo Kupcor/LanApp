@@ -29,7 +29,7 @@ public class CreateBottomNavigationPanel extends JPanel {
             if (this.wordsTranslatedListPanelNumber + 1 > length - 1) this.wordsTranslatedListPanelNumber = 0;
             else this.wordsTranslatedListPanelNumber++;
         }
-        else {
+        else if (button == this.previousButton){
             if (this.wordsTranslatedListPanelNumber - 1 < 0) this.wordsTranslatedListPanelNumber = length - 1;
             else this.wordsTranslatedListPanelNumber--;
         }
@@ -48,5 +48,10 @@ public class CreateBottomNavigationPanel extends JPanel {
 
     public int getWordsTranslatedListPanelNumber() {
         return wordsTranslatedListPanelNumber;
+    }
+
+    public void setWordsTranslatedListPanelNumberLabel(int wordsTranslatedListPanelNumber) {
+        this.wordsTranslatedListPanelNumberLabel.setText(String.valueOf(wordsTranslatedListPanelNumber+1));
+        this.wordsTranslatedListPanelNumber = wordsTranslatedListPanelNumber;
     }
 }

@@ -52,6 +52,4 @@ public class CreateResultAndChangeWordsOptionPanel extends JPanel {
         ++this.amountOfGuessWords;
         this.initializeOrUpdateStatistic();
     }
-
-    public int getAmountOfGuessWords() {return this.amountOfGuessWords;}
 }
