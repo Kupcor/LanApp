@@ -17,7 +17,7 @@ import java.util.Objects;
 public class RememberingWordsTraining extends JPanel implements MouseListener {
     private final Reader reader = new Reader();
     private final String[] wordsLearningOptions = this.reader.readTxtFile("src\\main\\java\\databases\\DataBases.txt");
-    private final JComboBox wordsLearningOptionsComboBox = new JComboBox(this.wordsLearningOptions);
+    private final JComboBox wordsLearningOptionsComboBox = new  JComboBox(this.wordsLearningOptions);
     private String filePath = "src\\main\\java\\databases\\data\\" + this.wordsLearningOptionsComboBox.getSelectedItem();
 
     private final DrawnWords drawnWords = new DrawnWords();

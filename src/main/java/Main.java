@@ -14,6 +14,6 @@ public class Main {
         } catch(Exception ex) {
             System.err.println("Failed to initialize LaF");
         }
-        MainUIContainer mainUIContainer = new MainUIContainer(1000, 500);
+        new MainUIContainer(1000, 500);
     }
 }

@@ -29,6 +29,7 @@ public class CreateListFromFileData extends JPanel {
         for (ArrayList<String> strings : this.currentFileDataList) {
             JLabel englishCaption = new JLabel(strings.get(0));
             this.currentFileDataLabelsList.add(englishCaption);
+            tempContainerPanel.setBorder(new EmptyBorder(2,5,0,0));
             tempContainerPanel.add(englishCaption);
             englishCaption.addMouseListener(mouseListener);
         }

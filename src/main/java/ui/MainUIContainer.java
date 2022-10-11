@@ -10,25 +10,22 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MainUIContainer extends Window implements MouseListener {
-    private JPanel navSectionPanel = new JPanel();
+    private final JPanel navSectionPanel = new JPanel();
     private JPanel mainSectionPanel = new JPanel();
-    private JPanel bottomSectionPanel = new JPanel();
 
     private RememberingWordsTraining rememberingWordsTraining;
     private DataModifier dataModifier;
 
-    private JLabel openRememberingWordsTrainingSection = new JLabel("Remembering words training");
-    private JLabel openDataModifierSection = new JLabel("Modify data");
+    private final JLabel openRememberingWordsTrainingSection = new JLabel("Remembering words training");
+    private final JLabel openDataModifierSection = new JLabel("Modify data");
 
     public MainUIContainer(int width, int height) throws Exception {
         super(width, height);
-        this.setStyleToMainPanels();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         this.navSectionPanel.setPreferredSize(new Dimension(200,500));
 
         this.setLayout(new BorderLayout());
-        this.mainSectionPanel.setBackground(Color.BLUE);
 
         this.openRememberingWordsTrainingSection.addMouseListener(this);
         this.openDataModifierSection.addMouseListener(this);
@@ -39,7 +36,8 @@ public class MainUIContainer extends Window implements MouseListener {
 
         this.add(this.navSectionPanel, BorderLayout.LINE_START);
         this.add(this.mainSectionPanel, BorderLayout.CENTER);
-        this.add(this.bottomSectionPanel, BorderLayout.PAGE_END);
+        JPanel bottomSectionPanel = new JPanel();
+        this.add(bottomSectionPanel, BorderLayout.PAGE_END);
         }
 
     private void setNewPanelToMainSection(JPanel panel) {
@@ -50,11 +48,6 @@ public class MainUIContainer extends Window implements MouseListener {
         this.add(this.navSectionPanel, BorderLayout.LINE_START);
         this.revalidate();
         this.repaint();
-    }
-
-    private void setStyleToMainPanels() {
-        this.navSectionPanel.setBackground(Color.decode("#232dde"));
-        this.navSectionPanel.setForeground(Color.decode("#000000"));
     }
 
     @Override

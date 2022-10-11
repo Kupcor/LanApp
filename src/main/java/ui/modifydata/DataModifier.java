@@ -5,6 +5,8 @@ import ui.modifydata.subclasses.leftSideSubclasses.AdditionalModificationOptionP
 import ui.modifydata.subclasses.leftSideSubclasses.CreateListFromFileData;
 import ui.modifydata.subclasses.leftSideSubclasses.CreateNewFile;
 import ui.modifydata.subclasses.leftSideSubclasses.LeftSidePanel;
+import ui.modifydata.subclasses.rightSideSubclasses.DataCreationSectionInfo;
+import ui.modifydata.subclasses.rightSideSubclasses.DataModificationSectionInfo;
 import ui.modifydata.subclasses.rightSideSubclasses.RightSidePanel;
 
 import javax.swing.*;
@@ -13,6 +15,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 public class DataModifier extends JPanel implements MouseListener {
     private JPanel leftSidePanel = new LeftSidePanel();
@@ -20,6 +23,8 @@ public class DataModifier extends JPanel implements MouseListener {
     private AdditionalModificationOptionPanel additionalModificationOptionPanel= new AdditionalModificationOptionPanel(this);
 
     private JPanel rightSidePanel = new RightSidePanel();
+    private DataCreationSectionInfo dataCreationSectionInfo = new DataCreationSectionInfo(this);
+    private DataModificationSectionInfo dataModificationSectionInfo = new DataModificationSectionInfo(this);
 
     private final Reader reader = new Reader();
     private final String[] dataOptions = this.reader.readTxtFile("src\\main\\java\\databases\\DataBases.txt");
@@ -38,6 +43,7 @@ public class DataModifier extends JPanel implements MouseListener {
         this.leftSidePanel.add(additionalModificationOptionPanel, BorderLayout.PAGE_END);
 
         this.add(leftSidePanel, BorderLayout.LINE_START);
+        this.add(rightSidePanel, BorderLayout.CENTER);
 
         this.dataOptionsComboBox.addActionListener(e -> {
             try {
@@ -48,13 +54,48 @@ public class DataModifier extends JPanel implements MouseListener {
         });
     }
 
+    private void rightSidePanelMainSectionRepaint(JPanel newMainJPanel) {
+        this.rightSidePanel.removeAll();
+        this.rightSidePanel.add(newMainJPanel);
+        this.rightSidePanel.repaint();
+        this.rightSidePanel.revalidate();
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         if (this.createListFromFileData.getCurrentFileDataLabelsList().contains(e.getSource())) {
-            System.out.println("Hello");
+            int dataIndex = this.createListFromFileData.getCurrentFileDataLabelsList().indexOf(e.getSource());
+            try {
+                this.dataModificationSectionInfo = new DataModificationSectionInfo(dataIndex, (String) this.dataOptionsComboBox.getSelectedItem(), this);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            this.rightSidePanelMainSectionRepaint(this.dataModificationSectionInfo);
         }
         if (this.additionalModificationOptionPanel.getCreateNewFileButton() == e.getSource()) {
             new CreateNewFile();
+        }
+        if (this.additionalModificationOptionPanel.getCreateNewDataButton() == e.getSource()) {
+            this.dataCreationSectionInfo = new DataCreationSectionInfo(this);
+            this.rightSidePanelMainSectionRepaint(this.dataCreationSectionInfo);
+        }
+
+        if (this.dataModificationSectionInfo.getSaveButton() == e.getSource()) {
+            try {
+                this.reader.saveNewDataOnFile((String) this.dataOptionsComboBox.getSelectedItem(),this.dataModificationSectionInfo.createNewDataToUpdateFile());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        if (this.dataCreationSectionInfo.getSaveButton() == e.getSource()) {
+            try {
+                this.dataCreationSectionInfo.saveNewData((String) this.dataOptionsComboBox.getSelectedItem());
+                this.createListFromFileData.populateNavSectionByDataFileContent((String) this.dataOptionsComboBox.getSelectedItem(), this);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

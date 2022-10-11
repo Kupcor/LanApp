@@ -45,8 +45,22 @@ public class Reader {
         return allDataBasesList;
     }
 
-    public void modifyDataRecord() {
+    public void saveNewDataOnFile(String filePath, ArrayList<String> tempDataArrayList) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src\\main\\java\\databases\\data\\" + filePath));
+        for (int iterator = 0; iterator < tempDataArrayList.size(); iterator++) {
+            bufferedWriter.write(tempDataArrayList.get(iterator));
+            if (iterator != tempDataArrayList.size() - 1) {
+                bufferedWriter.write("\n");
+            }
+        }
+        bufferedWriter.close();
+    }
 
+    public void createDataRecord(String newInformation, String filePath) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src\\main\\java\\databases\\data\\" + filePath, true));
+        bufferedWriter.append("\n");
+        bufferedWriter.append(newInformation);
+        bufferedWriter.close();
     }
 
     public void createCSVFile(String filePath) {
