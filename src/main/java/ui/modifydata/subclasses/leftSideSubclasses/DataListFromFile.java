@@ -8,12 +8,12 @@ import java.awt.*;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class CreateListFromFileData extends JPanel {
+public class DataListFromFile extends JPanel {
     private ArrayList<ArrayList<String>> currentFileDataList = new ArrayList<>();
     private final ArrayList<JLabel> currentFileDataLabelsList = new ArrayList<>();
     private final Reader reader = new Reader();
 
-    public CreateListFromFileData(String filePath, MouseListener mouseListener) throws Exception {
+    public DataListFromFile(String filePath, MouseListener mouseListener) throws Exception {
         this.setLayout(new GridLayout(1,1));
         this.setBorder(new EmptyBorder(5,0,10,0));
         this.populateNavSectionByDataFileContent(filePath, mouseListener);

@@ -2,10 +2,10 @@ package ui.wordtrainings;
 
 import databases.Reader;
 import ui.wordtrainings.subclasses.leftpanelandclasses.*;
-import ui.wordtrainings.subclasses.rightpanelandclasses.CreateAnswerListSummaryPanel;
-import ui.wordtrainings.subclasses.rightpanelandclasses.CreateInfoRightSectionPanel;
-import ui.wordtrainings.subclasses.rightpanelandclasses.CreateRightSidePanel;
-import ui.wordtrainings.subclasses.wordinformationwindow.CreateWordInformationWindow;
+import ui.wordtrainings.subclasses.rightpanelandclasses.AnswerListSummaryPanel;
+import ui.wordtrainings.subclasses.wordinformationwindow.WordInformationWindow;
+import ui.wordtrainings.subclasses.rightpanelandclasses.RightSectionPanel;
+import ui.wordtrainings.subclasses.rightpanelandclasses.RightPanel;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -22,65 +22,65 @@ public class RememberingWordsTraining extends JPanel implements MouseListener {
 
     private final DrawnWords drawnWords = new DrawnWords();
 
-    private final CreateWordsGameMainPanel createWordsGameMainPanel = new CreateWordsGameMainPanel(this, this.drawnWords.getDrawnWords(this.filePath));
-    private final CreateResultAndChangeWordsOptionPanel createResultAndChangeWordsOptionPanel = new CreateResultAndChangeWordsOptionPanel(this.wordsLearningOptionsComboBox);
-    private final CreateCorrectWordPanel createCorrectWordPanel = new CreateCorrectWordPanel(this.createWordsGameMainPanel.getCorrectAnswer().get(1));
+    private final WordsGameMainPanel wordsGameMainPanel = new WordsGameMainPanel(this, this.drawnWords.getDrawnWords(this.filePath, 10));
+    private final ResultAndChangeWordsOptionPanel resultAndChangeWordsOptionPanel = new ResultAndChangeWordsOptionPanel(this.wordsLearningOptionsComboBox);
+    private final CorrectWordPanel correctWordPanel = new CorrectWordPanel(this.wordsGameMainPanel.getCorrectAnswer().get(1));
 
-    private final CreateAnswerListSummaryPanel createAnswerListSummaryPanel = new CreateAnswerListSummaryPanel(this);
+    private final AnswerListSummaryPanel answerListSummaryPanel = new AnswerListSummaryPanel(this);
 
     public RememberingWordsTraining() throws Exception {
         this.setSize(new Dimension(800,500));
         this.setLayout(new GridLayout(1,2));
 
-        CreateInfoRightSectionPanel createInfoRightSectionPanel = new CreateInfoRightSectionPanel();
+        RightSectionPanel rightSectionPanel = new RightSectionPanel();
 
-        CreateLeftSidePanel createLeftSidePanel = new CreateLeftSidePanel();
-        createLeftSidePanel.add(this.createCorrectWordPanel, BorderLayout.PAGE_START);
-        createLeftSidePanel.add(this.createWordsGameMainPanel, BorderLayout.CENTER);
-        createLeftSidePanel.add(this.createResultAndChangeWordsOptionPanel, BorderLayout.PAGE_END);
+        LeftPanel leftPanel = new LeftPanel();
+        leftPanel.add(this.correctWordPanel, BorderLayout.PAGE_START);
+        leftPanel.add(this.wordsGameMainPanel, BorderLayout.CENTER);
+        leftPanel.add(this.resultAndChangeWordsOptionPanel, BorderLayout.PAGE_END);
 
-        CreateRightSidePanel createRightSidePanel = new CreateRightSidePanel();
-        createRightSidePanel.add(this.createAnswerListSummaryPanel, BorderLayout.CENTER);
-        createRightSidePanel.add(createInfoRightSectionPanel, BorderLayout.PAGE_START);
+        RightPanel rightPanel = new RightPanel();
+        rightPanel.add(this.answerListSummaryPanel, BorderLayout.CENTER);
+        rightPanel.add(rightSectionPanel, BorderLayout.PAGE_START);
 
         this.wordsLearningOptionsComboBox.addActionListener(e -> {
             this.filePath = "src\\main\\java\\databases\\data\\"+this.wordsLearningOptionsComboBox.getSelectedItem();
             try {
-                this.createWordsGameMainPanel.createButtonsWithDrawnWords(this, this.drawnWords.getDrawnWords(this.filePath));
+                this.wordsGameMainPanel.createButtonsWithDrawnWords(this, this.drawnWords.getDrawnWords(this.filePath, 10));
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            this.createCorrectWordPanel.updateCorrectAnswerLabel(this.createWordsGameMainPanel.getCorrectAnswer().get(1));
+            this.correctWordPanel.updateCorrectAnswerLabel(this.wordsGameMainPanel.getCorrectAnswer().get(1));
         });
 
-        this.add(createLeftSidePanel);
-        this.add(createRightSidePanel);
+        this.add(leftPanel);
+        this.add(rightPanel);
     }
 
     private boolean evaluateAnswer(JButton button) {
-        return Objects.equals(button.getText(), this.createWordsGameMainPanel.getCorrectAnswer().get(0));
+        return Objects.equals(button.getText(), this.wordsGameMainPanel.getCorrectAnswer().get(0));
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (this.createWordsGameMainPanel.getListOfButtonsWithDrawnWords().contains(e.getSource())) {
-            this.createAnswerListSummaryPanel.addSummaryOfYourAnswer(this.createWordsGameMainPanel.getCorrectAnswer(), this.evaluateAnswer((JButton) e.getSource()), this);
-            this.createResultAndChangeWordsOptionPanel.updateStatistic(this.evaluateAnswer((JButton) e.getSource()));
+        if (this.wordsGameMainPanel.getListOfButtonsWithDrawnWords().contains(e.getSource())) {
+            this.answerListSummaryPanel.addSummaryOfYourAnswer(this.wordsGameMainPanel.getCorrectAnswer(), this.evaluateAnswer((JButton) e.getSource()), this);
+            this.resultAndChangeWordsOptionPanel.updateStatistic(this.evaluateAnswer((JButton) e.getSource()));
             try {
-                this.createWordsGameMainPanel.createButtonsWithDrawnWords(this, this.drawnWords.getDrawnWords(this.filePath));
+                this.wordsGameMainPanel.createButtonsWithDrawnWords(this, this.drawnWords.getDrawnWords(this.filePath, 10));
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            this.createCorrectWordPanel.updateCorrectAnswerLabel(this.createWordsGameMainPanel.getCorrectAnswer().get(1));
+            this.correctWordPanel.updateCorrectAnswerLabel(this.wordsGameMainPanel.getCorrectAnswer().get(1));
         }
 
-        if (e.getSource() == this.createAnswerListSummaryPanel.getCreateBottomNavigationPanelNextButton() || e.getSource() == this.createAnswerListSummaryPanel.getCreateBottomNavigationPanelPreviousButton()) {
-            this.createAnswerListSummaryPanel.nextPreviousWordsListSummaryPanel((JButton) e.getSource());
+        if (e.getSource() == this.answerListSummaryPanel.getCreateBottomNavigationPanelNextButton() || e.getSource() == this.answerListSummaryPanel.getCreateBottomNavigationPanelPreviousButton()) {
+            this.answerListSummaryPanel.nextPreviousWordsListSummaryPanel((JButton) e.getSource());
         }
 
-        if (this.createAnswerListSummaryPanel.getListOfPanelAnswer().contains(e.getSource())) {
-            int index = this.createAnswerListSummaryPanel.getListOfPanelAnswer().indexOf(e.getSource());
-            new CreateWordInformationWindow(this.createAnswerListSummaryPanel.getListOfAnswers().get(index));
+        if (this.answerListSummaryPanel.getListOfPanelAnswer().contains(e.getSource())) {
+            int index = this.answerListSummaryPanel.getListOfPanelAnswer().indexOf(e.getSource());
+            new WordInformationWindow(this.answerListSummaryPanel.getListOfAnswers().get(index));
         }
     }
 
@@ -96,17 +96,17 @@ public class RememberingWordsTraining extends JPanel implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (this.createAnswerListSummaryPanel.getListOfPanelAnswer().contains(e.getSource())) {
-            int index = this.createAnswerListSummaryPanel.getListOfPanelAnswer().indexOf(e.getSource());
-            this.createAnswerListSummaryPanel.getListOfPanelAnswer().get(index).setBorder(new LineBorder(Color.WHITE, 1));
+        if (this.answerListSummaryPanel.getListOfPanelAnswer().contains(e.getSource())) {
+            int index = this.answerListSummaryPanel.getListOfPanelAnswer().indexOf(e.getSource());
+            this.answerListSummaryPanel.getListOfPanelAnswer().get(index).setBorder(new LineBorder(Color.WHITE, 1));
         }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        if (this.createAnswerListSummaryPanel.getListOfPanelAnswer().contains(e.getSource())) {
-            int index = this.createAnswerListSummaryPanel.getListOfPanelAnswer().indexOf(e.getSource());
-            this.createAnswerListSummaryPanel.getListOfPanelAnswer().get(index).setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        if (this.answerListSummaryPanel.getListOfPanelAnswer().contains(e.getSource())) {
+            int index = this.answerListSummaryPanel.getListOfPanelAnswer().indexOf(e.getSource());
+            this.answerListSummaryPanel.getListOfPanelAnswer().get(index).setBorder(javax.swing.BorderFactory.createEmptyBorder());
         }
     }
 }

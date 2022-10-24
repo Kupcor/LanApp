@@ -3,9 +3,9 @@ package ui.wordtrainings.subclasses.leftpanelandclasses;
 import javax.swing.*;
 import java.awt.*;
 
-public class CreateCorrectWordPanel extends JPanel {
+public class CorrectWordPanel extends JPanel {
 
-    public CreateCorrectWordPanel(String correctAnswer) {
+    public CorrectWordPanel(String correctAnswer) {
         this.setLayout(new GridLayout(1,1));
         this.updateCorrectAnswerLabel(correctAnswer);
     }

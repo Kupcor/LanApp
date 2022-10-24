@@ -6,19 +6,19 @@ import java.awt.*;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class CreateAnswerListSummaryPanel extends JPanel {
+public class AnswerListSummaryPanel extends JPanel {
     private final int maxAmountOfAnswersInOneSummaryPanel = 20;
     private int amountOfAnswersInOneSummaryPanel = 0;
     private int currentSummaryPanelIndex = 0;
     private final ArrayList<JPanel> summaryPanelList = new ArrayList<>();
     private final ArrayList<ArrayList<String>> listOfAnswers = new ArrayList<>();
     private final ArrayList<JPanel> listOfPanelAnswer = new ArrayList<>();
-    private final CreateBottomNavigationPanel createBottomNavigationPanel;
+    private final BottomNavigationPanel bottomNavigationPanel;
 
-    public CreateAnswerListSummaryPanel(MouseListener mouseListener) {
+    public AnswerListSummaryPanel(MouseListener mouseListener) {
         JPanel oneSummaryPanel = new JPanel(new GridLayout(this.maxAmountOfAnswersInOneSummaryPanel, 1));
         oneSummaryPanel.setBorder(new EmptyBorder(0,0,10,0));
-        this.createBottomNavigationPanel = new CreateBottomNavigationPanel(mouseListener);
+        this.bottomNavigationPanel = new BottomNavigationPanel(mouseListener);
         this.setLayout(new BorderLayout());
         this.summaryPanelList.add(oneSummaryPanel);
         this.add(summaryPanelList.get(this.currentSummaryPanelIndex), BorderLayout.CENTER);
@@ -54,18 +54,18 @@ public class CreateAnswerListSummaryPanel extends JPanel {
     }
 
     private void createBottomNavigationPanel() {
-        this.add(createBottomNavigationPanel, BorderLayout.PAGE_END);
-        createBottomNavigationPanel.initialize();
+        this.add(bottomNavigationPanel, BorderLayout.PAGE_END);
+        bottomNavigationPanel.initialize();
     }
 
     private void addAnotherWordsListSummaryPanel() {
         JPanel oneSummaryPanel = new JPanel(new GridLayout(this.maxAmountOfAnswersInOneSummaryPanel, 1));
         oneSummaryPanel.setBorder(new EmptyBorder(0,0,10,0));
-        this.remove(this.summaryPanelList.get(this.createBottomNavigationPanel.getWordsTranslatedListPanelNumber()));
+        this.remove(this.summaryPanelList.get(this.bottomNavigationPanel.getWordsTranslatedListPanelNumber()));
         this.summaryPanelList.add(oneSummaryPanel);
 
         this.currentSummaryPanelIndex++;
-        this.createBottomNavigationPanel.setWordsTranslatedListPanelNumberLabel(this.currentSummaryPanelIndex);
+        this.bottomNavigationPanel.setWordsTranslatedListPanelNumberLabel(this.currentSummaryPanelIndex);
 
         this.add(summaryPanelList.get(this.currentSummaryPanelIndex));
         this.revalidate();
@@ -73,20 +73,20 @@ public class CreateAnswerListSummaryPanel extends JPanel {
     }
 
     public void nextPreviousWordsListSummaryPanel(JButton button) {
-        this.remove(this.summaryPanelList.get(this.createBottomNavigationPanel.getWordsTranslatedListPanelNumber()));
-        this.createBottomNavigationPanel.updateTranslatedListPanelNumberLabel(button,this.summaryPanelList.size());
+        this.remove(this.summaryPanelList.get(this.bottomNavigationPanel.getWordsTranslatedListPanelNumber()));
+        this.bottomNavigationPanel.updateTranslatedListPanelNumberLabel(button,this.summaryPanelList.size());
 
-        this.add(this.summaryPanelList.get(this.createBottomNavigationPanel.getWordsTranslatedListPanelNumber()));
+        this.add(this.summaryPanelList.get(this.bottomNavigationPanel.getWordsTranslatedListPanelNumber()));
         this.revalidate();
         this.repaint();
     }
 
     public JButton getCreateBottomNavigationPanelNextButton() {
-        return this.createBottomNavigationPanel.getNextButton();
+        return this.bottomNavigationPanel.getNextButton();
     }
 
     public JButton getCreateBottomNavigationPanelPreviousButton() {
-        return this.createBottomNavigationPanel.getPreviousButton();
+        return this.bottomNavigationPanel.getPreviousButton();
     }
 
     public ArrayList<ArrayList<String>> getListOfAnswers() {

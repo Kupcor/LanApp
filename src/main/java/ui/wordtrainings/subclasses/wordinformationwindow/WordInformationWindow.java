@@ -7,9 +7,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class CreateWordInformationWindow extends Window {
+public class WordInformationWindow extends Window {
 
-    public CreateWordInformationWindow(ArrayList<String> wordInformationList) {
+    public WordInformationWindow(ArrayList<String> wordInformationList) {
         super(500,100);
         assert wordInformationList != null : "The word information was not provided.";
 

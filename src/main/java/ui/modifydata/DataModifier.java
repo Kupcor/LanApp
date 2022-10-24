@@ -2,12 +2,12 @@ package ui.modifydata;
 
 import databases.Reader;
 import ui.modifydata.subclasses.leftSideSubclasses.AdditionalModificationOptionPanel;
-import ui.modifydata.subclasses.leftSideSubclasses.CreateListFromFileData;
-import ui.modifydata.subclasses.leftSideSubclasses.CreateNewFile;
-import ui.modifydata.subclasses.leftSideSubclasses.LeftSidePanel;
+import ui.modifydata.subclasses.leftSideSubclasses.DataListFromFile;
+import ui.modifydata.subclasses.leftSideSubclasses.NewFileCreator;
+import ui.modifydata.subclasses.leftSideSubclasses.LeftPanel;
 import ui.modifydata.subclasses.rightSideSubclasses.DataCreationSectionInfo;
 import ui.modifydata.subclasses.rightSideSubclasses.DataModificationSectionInfo;
-import ui.modifydata.subclasses.rightSideSubclasses.RightSidePanel;
+import ui.modifydata.subclasses.rightSideSubclasses.RightPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,11 +18,11 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 
 public class DataModifier extends JPanel implements MouseListener {
-    private JPanel leftSidePanel = new LeftSidePanel();
-    private CreateListFromFileData createListFromFileData;
+    private JPanel leftSidePanel = new LeftPanel();
+    private DataListFromFile dataListFromFile;
     private AdditionalModificationOptionPanel additionalModificationOptionPanel= new AdditionalModificationOptionPanel(this);
 
-    private JPanel rightSidePanel = new RightSidePanel();
+    private JPanel rightSidePanel = new RightPanel();
     private DataCreationSectionInfo dataCreationSectionInfo = new DataCreationSectionInfo(this);
     private DataModificationSectionInfo dataModificationSectionInfo = new DataModificationSectionInfo(this);
 
@@ -36,10 +36,10 @@ public class DataModifier extends JPanel implements MouseListener {
 
         JPanel fileChosePanel = new JPanel(new GridLayout(1,1));
         fileChosePanel.add(this.dataOptionsComboBox);
-        this.createListFromFileData = new CreateListFromFileData((String) this.dataOptionsComboBox.getSelectedItem(), this);
+        this.dataListFromFile = new DataListFromFile((String) this.dataOptionsComboBox.getSelectedItem(), this);
 
         this.leftSidePanel.add(fileChosePanel, BorderLayout.PAGE_START);
-        this.leftSidePanel.add(createListFromFileData, BorderLayout.CENTER);
+        this.leftSidePanel.add(dataListFromFile, BorderLayout.CENTER);
         this.leftSidePanel.add(additionalModificationOptionPanel, BorderLayout.PAGE_END);
 
         this.add(leftSidePanel, BorderLayout.LINE_START);
@@ -47,7 +47,7 @@ public class DataModifier extends JPanel implements MouseListener {
 
         this.dataOptionsComboBox.addActionListener(e -> {
             try {
-                this.createListFromFileData.populateNavSectionByDataFileContent((String) this.dataOptionsComboBox.getSelectedItem(), this);
+                this.dataListFromFile.populateNavSectionByDataFileContent((String) this.dataOptionsComboBox.getSelectedItem(), this);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -63,8 +63,8 @@ public class DataModifier extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (this.createListFromFileData.getCurrentFileDataLabelsList().contains(e.getSource())) {
-            int dataIndex = this.createListFromFileData.getCurrentFileDataLabelsList().indexOf(e.getSource());
+        if (this.dataListFromFile.getCurrentFileDataLabelsList().contains(e.getSource())) {
+            int dataIndex = this.dataListFromFile.getCurrentFileDataLabelsList().indexOf(e.getSource());
             try {
                 this.dataModificationSectionInfo = new DataModificationSectionInfo(dataIndex, (String) this.dataOptionsComboBox.getSelectedItem(), this);
             } catch (Exception ex) {
@@ -73,7 +73,7 @@ public class DataModifier extends JPanel implements MouseListener {
             this.rightSidePanelMainSectionRepaint(this.dataModificationSectionInfo);
         }
         if (this.additionalModificationOptionPanel.getCreateNewFileButton() == e.getSource()) {
-            new CreateNewFile();
+            new NewFileCreator();
         }
         if (this.additionalModificationOptionPanel.getCreateNewDataButton() == e.getSource()) {
             this.dataCreationSectionInfo = new DataCreationSectionInfo(this);
@@ -91,7 +91,7 @@ public class DataModifier extends JPanel implements MouseListener {
         if (this.dataCreationSectionInfo.getSaveButton() == e.getSource()) {
             try {
                 this.dataCreationSectionInfo.saveNewData((String) this.dataOptionsComboBox.getSelectedItem());
-                this.createListFromFileData.populateNavSectionByDataFileContent((String) this.dataOptionsComboBox.getSelectedItem(), this);
+                this.dataListFromFile.populateNavSectionByDataFileContent((String) this.dataOptionsComboBox.getSelectedItem(), this);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -110,17 +110,17 @@ public class DataModifier extends JPanel implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (this.createListFromFileData.getCurrentFileDataLabelsList().contains(e.getSource())) {
-            int index = this.createListFromFileData.getCurrentFileDataLabelsList().indexOf(e.getSource());
-            this.createListFromFileData.getCurrentFileDataLabelsList().get(index).setBorder(new LineBorder(Color.white, 1));
+        if (this.dataListFromFile.getCurrentFileDataLabelsList().contains(e.getSource())) {
+            int index = this.dataListFromFile.getCurrentFileDataLabelsList().indexOf(e.getSource());
+            this.dataListFromFile.getCurrentFileDataLabelsList().get(index).setBorder(new LineBorder(Color.white, 1));
         }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        if (this.createListFromFileData.getCurrentFileDataLabelsList().contains(e.getSource())) {
-            int index = this.createListFromFileData.getCurrentFileDataLabelsList().indexOf(e.getSource());
-            this.createListFromFileData.getCurrentFileDataLabelsList().get(index).setBorder(new EmptyBorder(0,0,0,0));
+        if (this.dataListFromFile.getCurrentFileDataLabelsList().contains(e.getSource())) {
+            int index = this.dataListFromFile.getCurrentFileDataLabelsList().indexOf(e.getSource());
+            this.dataListFromFile.getCurrentFileDataLabelsList().get(index).setBorder(new EmptyBorder(0,0,0,0));
         }
     }
 }

@@ -3,9 +3,9 @@ package ui.wordtrainings.subclasses.rightpanelandclasses;
 import javax.swing.*;
 import java.awt.*;
 
-public class CreateInfoRightSectionPanel extends JPanel {
+public class RightSectionPanel extends JPanel {
 
-    public CreateInfoRightSectionPanel() {
+    public RightSectionPanel() {
         this.setLayout(new GridLayout(1,1));
 
         JLabel yourAnswersCaption = new JLabel("Your answers", SwingConstants.CENTER);

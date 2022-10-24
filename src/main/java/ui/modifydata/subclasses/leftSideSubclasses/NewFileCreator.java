@@ -9,13 +9,13 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class CreateNewFile extends Window implements MouseListener {
+public class NewFileCreator extends Window implements MouseListener {
     private final JTextField fileNameTextArea = new JTextField();
     private final JButton cancelButton = new JButton("<html><center>Cancel</center></html>");
     private final JButton acceptButton = new JButton("<html><center>Accept</center></html>");
     private final Reader reader = new Reader();
 
-    public CreateNewFile() {
+    public NewFileCreator() {
         super(500, 120);
         this.setLayout(new GridLayout(1,1));
         this.setTitle("Creating new file window");

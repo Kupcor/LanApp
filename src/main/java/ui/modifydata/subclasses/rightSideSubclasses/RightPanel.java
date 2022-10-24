@@ -3,9 +3,9 @@ package ui.modifydata.subclasses.rightSideSubclasses;
 import javax.swing.*;
 import java.awt.*;
 
-public class RightSidePanel extends JPanel {
+public class RightPanel extends JPanel {
 
-    public RightSidePanel() {
+    public RightPanel() {
         this.setLayout(new BorderLayout());
     }
 }

@@ -4,13 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
 
-public class CreateBottomNavigationPanel extends JPanel {
+public class BottomNavigationPanel extends JPanel {
     private int wordsTranslatedListPanelNumber;
     private final JLabel wordsTranslatedListPanelNumberLabel;
     private final JButton previousButton = new JButton("<html><center>Previous</center><html>");
     private final JButton nextButton = new JButton("<html><center>Next</center><html>");
 
-    public CreateBottomNavigationPanel(MouseListener mouseListener) {
+    public BottomNavigationPanel(MouseListener mouseListener) {
         this.setLayout(new GridLayout(1,3));
         this.wordsTranslatedListPanelNumber = 0;
         this.wordsTranslatedListPanelNumberLabel = new JLabel(String.valueOf(this.wordsTranslatedListPanelNumber + 1), SwingConstants.CENTER);

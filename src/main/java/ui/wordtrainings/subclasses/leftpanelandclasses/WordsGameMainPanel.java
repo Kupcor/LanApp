@@ -6,11 +6,11 @@ import java.awt.*;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class CreateWordsGameMainPanel extends JPanel {
+public class WordsGameMainPanel extends JPanel {
     private final ArrayList<JButton> listOfButtonsWithDrawnWords = new ArrayList<>();
     private ArrayList<String> correctAnswerInformation;
 
-    public CreateWordsGameMainPanel(MouseListener mouseListener, ArrayList<ArrayList<String>> drawnWordList){
+    public WordsGameMainPanel(MouseListener mouseListener, ArrayList<ArrayList<String>> drawnWordList){
         this.setLayout(new GridLayout(10,1));
         this.setBorder(new EmptyBorder(5,0,5,0));
         this.createButtonsWithDrawnWords(mouseListener, drawnWordList);

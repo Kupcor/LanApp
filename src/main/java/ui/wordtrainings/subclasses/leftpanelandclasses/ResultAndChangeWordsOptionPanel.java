@@ -4,13 +4,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class CreateResultAndChangeWordsOptionPanel extends JPanel {
+public class ResultAndChangeWordsOptionPanel extends JPanel {
     private int amountOfGuessWords;
     private int amountOfCorrectAnswer;
     private int amountOfWrongAnswer;
     private final JPanel resultsSummaryPanel = new JPanel();
 
-    public CreateResultAndChangeWordsOptionPanel(JComboBox comboBox) {
+    public ResultAndChangeWordsOptionPanel(JComboBox comboBox) {
         this.setLayout(new BorderLayout());
         this.amountOfCorrectAnswer = 0;
         this.amountOfWrongAnswer = 0;

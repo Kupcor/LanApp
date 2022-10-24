@@ -4,9 +4,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class CreateLeftSidePanel extends JPanel {
+public class LeftPanel extends JPanel {
 
-    public CreateLeftSidePanel() {
+    public LeftPanel() {
         this.setLayout(new BorderLayout());
         this.setBorder(new EmptyBorder(5,20,5,10));
     }
